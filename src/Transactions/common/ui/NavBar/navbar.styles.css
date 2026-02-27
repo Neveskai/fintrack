@@ -1,0 +1,151 @@
+/* Sticky em desktop e mobile: navbar gruda no topo ao rolar */
+.SideBar {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+
+  width: 100%;
+  min-width: 0; /* permite encolher dentro de flex */
+  border-bottom: 2px solid;
+  height: 52px;
+  min-height: 52px;
+  padding: 0 16px;
+  transition: width 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background-color: Background;
+  overflow-x: hidden;
+  overflow-y: hidden; /* evita altura extra e scroll vertical */
+  box-sizing: border-box;
+}
+@media (max-width: 768px) {
+  .SideBar {
+    padding: 0 12px;
+    gap: 8px;
+  }
+}
+
+.SideBar.dark .chakra-tabs__trigger {
+  --indicator-color: var(--chakra-colors-blue-400);
+}
+
+/* Logo: evita encolher no mobile */
+.NavBar-logo {
+  flex-shrink: 0;
+  min-width: 0;
+  width: auto;
+  max-width: 100px;
+}
+@media (max-width: 768px) {
+  .NavBar-logo {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+/* Desktop: tabs visíveis apenas acima do breakpoint */
+.NavBar-desktop {
+  flex: 1;
+  min-width: 0;
+  overflow: visible; /* ícones e texto das abas não podem ser cortados */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.SideBar .chakra-tabs__list,
+.NavBar-desktop [data-scope="tabs"][data-part="list"],
+.NavBar-tabsList {
+  min-width: 0;
+  flex-wrap: nowrap;
+  overflow: visible;
+  align-items: center;
+  height: 52px;
+  display: flex;
+}
+/* Trigger padrão (ícone + texto) – usado no mobile drawer */
+.NavBar-tabTrigger,
+.SideBar .chakra-tabs__trigger {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  height: 52px;
+  min-height: 52px;
+  overflow: visible;
+  flex-shrink: 1;
+  min-width: 0;
+}
+.NavBar-tabTrigger > *:first-child,
+.SideBar .chakra-tabs__trigger > *:first-child {
+  flex-shrink: 0;
+}
+
+/* Desktop: apenas ícone – barra mais enxuta */
+.NavBar-tabTrigger--iconOnly,
+.SideBar .NavBar-tabsList .NavBar-tabTrigger--iconOnly {
+  min-width: 40px;
+  width: 40px;
+  padding: 0 8px;
+  justify-content: center;
+  border-radius: 8px;
+}
+.SideBar .NavBar-tabsList {
+  gap: 4px;
+}
+@media (max-width: 768px) {
+  .NavBar-desktop {
+    display: none;
+  }
+}
+
+/* Mobile: botão hamburger apenas no mobile */
+.NavBar-menuButton {
+  display: none;
+}
+@media (max-width: 768px) {
+  .NavBar-menuButton {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+}
+
+/* Área tema + avatar */
+.NavBar-actions {
+  flex-shrink: 0;
+  width: auto;
+  margin-left: 12px;
+}
+@media (max-width: 768px) {
+  .NavBar-actions {
+    width: auto;
+    margin-left: 0;
+  }
+}
+
+/* Drawer do menu mobile: alinha à esquerda e ocupa altura total */
+@media (max-width: 768px) {
+  .NavBar-drawerPositioner {
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+}
+
+.NavBar-drawer {
+  max-height: 100vh;
+  overflow: auto;
+}
+@media (max-width: 768px) {
+  .NavBar-drawer {
+    width: min(320px, 100vw);
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+    border-right-width: 1px;
+    height: 100%;
+    max-height: 100vh;
+  }
+}

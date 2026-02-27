@@ -1,0 +1,49 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helpers ──────────────────────────────────────────────────────
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Limita tamanho de lote por request (previne escritas massivas)
+    function withinSizeLimit() {
+      return request.resource.data.keys().size() < 30;
+    }
+
+    // ── User Settings ───────────────────────────────────────────────
+    // Cada usuário só acessa o próprio documento.
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // ── Transactions ────────────────────────────────────────────────
+    // Isolamento por userId: cada documento deve ter campo userId == request.auth.uid.
+    match /transactions/{transactionId} {
+      allow read:   if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && withinSizeLimit() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+
+      match /items/{itemId} {
+        allow read, write: if isSignedIn() && get(/databases/$(database)/documents/transactions/$(transactionId)).data.userId == request.auth.uid;
+      }
+    }
+
+    // ── Counterparties ──────────────────────────────────────────────
+    match /counterparties/{docId} {
+      allow read, update, delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+    }
+
+    // ── Nega tudo o que não casou acima ──────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Por padrão, nega tudo.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // Exemplo: se for usar Storage para fotos de cupons por usuário:
+    // match /receipts/{userId}/{fileName} {
+    //   allow read:  if request.auth != null && request.auth.uid == userId;
+    //   allow write: if request.auth != null
+    //                && request.auth.uid == userId
+    //                && request.resource.size < 5 * 1024 * 1024   // max 5 MB
+    //                && request.resource.contentType.matches('image/.*');
+    // }
+  }
+}

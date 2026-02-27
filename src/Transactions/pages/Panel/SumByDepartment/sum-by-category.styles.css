@@ -1,0 +1,56 @@
+/* Garante que as três linhas (label, value, bar) tenham a mesma largura e distribuição */
+.category-bar-content > * {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Permite que cada célula encolha conforme --bar-percent (evita min-width do conteúdo) */
+.category-bar-content > * > *,
+.category-bar-fills > div {
+  min-width: 0;
+}
+
+.category-bar-fills > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+}
+
+.category-bar-values > div {
+  font-weight: 600;
+}
+
+/* Tooltip exibido no hover das labels (mouseenter/mouseout) */
+.category-bar-label-tooltip {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  padding: 6px 10px;
+  background: var(--chakra-colors-gray-800, #2d3748);
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Mobile: labels e valores mais compactos */
+@media (max-width: 768px) {
+  .category-bar-content {
+    gap: 4px;
+  }
+  .category-bar-label,
+  .category-bar-values,
+  .category-bar-fills {
+    font-size: 11px;
+  }
+  .category-bar-fills > div {
+    font-size: 10px;
+  }
+}
