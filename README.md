@@ -54,17 +54,15 @@ O **FinTrack** é um aplicativo web de finanças pessoais focado no controle de 
 
 <div align="center">
 
-| Tela de Login | Painel (Dashboard) |
+| Painel (Dashboard) | Transações |
 |:---:|:---:|
-| <img src="docs/screenshots/login.png" alt="Login" width="380" /> | <img src="docs/screenshots/panel.png" alt="Painel" width="380" /> |
+| <img src="docs/screenshots/panel.png" alt="Painel - Fevereiro 2026" width="380" /> | <img src="docs/screenshots/transactions.png" alt="Lista de transações" width="380" /> |
 
-| Transações | Orçamentos |
+| Orçamentos | Categorias |
 |:---:|:---:|
-| <img src="docs/screenshots/transactions.png" alt="Transações" width="380" /> | <img src="docs/screenshots/budget.png" alt="Orçamentos" width="380" /> |
+| <img src="docs/screenshots/budget.png" alt="Orçamento mensal" width="380" /> | <img src="docs/screenshots/categories.png" alt="Categorias e regras" width="380" /> |
 
 </div>
-
-> **Nota:** Screenshots serão adicionados conforme o projeto evolui. Para ver o app em ação, siga as instruções de [Começando](#-começando).
 
 ---
 
